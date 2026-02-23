@@ -7,3 +7,5 @@
 # environment variables
 .env*
 !.env.example
+
+.DS_Store
