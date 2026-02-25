@@ -59,16 +59,16 @@ Keep the same section headers and structure as the template so the body is valid
 **Standard form:**
 
 ```bash
-gh pr create --draft --title "Brief title from branch/commits" --body-file .pr-body-draft.md
+gh pr create --draft --title "type(TICKET): brief title" --body-file .pr-body-draft.md
 ```
 
-- **Title**: Short, imperative or descriptive (e.g. from first commit or branch name). Can use `--fill` to take title/body from commits, but then body is overridden by `--body-file`; so prefer an explicit `--title` that matches the work.
+- **Title**: Use **conventional commit style** so the PR title becomes a valid commit subject when squash-and-merge is used. Format: `type(TICKET): brief imperative description` — e.g. `feat(PROJ-123): add notification CC modals`, `fix(PROJ-234): resolve modal description styling`. Derive `type` from the work (e.g. `feat`, `fix`, `chore`, `docs`, `refactor`) and `TICKET` from the branch name (same ID used in the body). Short, imperative, no period at the end. Prefer an explicit `--title` over `--fill` so the body is not overridden by `--body-file`.
 - **Body**: Always use `--body-file` with the filled template file so the PR follows the repo template.
 
 If the user prefers not to leave a file on disk, use stdin:
 
 ```bash
-gh pr create --draft --title "Brief title" --body-file -
+gh pr create --draft --title "feat(PROJ-123): brief title" --body-file -
 ```
 
 Then show the filled body and tell them to paste it when the command prompts, or use a heredoc (e.g. `<< 'PRBODY' ... PRBODY`) in the same shell command.
@@ -94,7 +94,7 @@ User is on branch `PROJ-194-ui-mismatch-in-email-management` in `admin-dashboard
 5. Output:
 
 ```bash
-cd path/to/repo && gh pr create --draft --title "PROJ-194: UI mismatch in email management" --body-file .pr-body-draft.md
+cd path/to/repo && gh pr create --draft --title "feat(PROJ-194): UI mismatch in email management" --body-file .pr-body-draft.md
 ```
 
 ## Summary
@@ -102,5 +102,5 @@ cd path/to/repo && gh pr create --draft --title "PROJ-194: UI mismatch in email 
 - **Template**: Use the repo’s `.github/pull_request_template.md` (or variant).
 - **Body**: Fill it from branch commits + chat; keep section structure. Write the **Summary** as bullet points, not a paragraph. **Remove** template instruction/pointer lines in any section you filled; leave placeholders only in sections you did not fill.
 - **Ticket**: From branch name (e.g. PROJ-194, CR-123) for Closes/Related ticket.
-- **Command**: `gh pr create --draft --title "..." --body-file <path>` (or `--body-file -` and provide body separately).
+- **Command**: `gh pr create --draft --title "type(TICKET): brief title" --body-file <path>` (or `--body-file -` and provide body separately). **Title**: conventional commit style (e.g. `feat(PROJ-123): ...`, `fix(PROJ-234): ...`) so squash-merge yields a proper commit subject.
 - **Multi-repo**: Ask which project if unclear; run commands from that repo root.
