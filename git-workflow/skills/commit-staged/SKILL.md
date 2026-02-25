@@ -67,9 +67,11 @@ Default to `feat` for new behavior, `fix` for defect fixes, `chore` for everythi
 - **Put each item on its own line** (no bullets); use newlines inside the body string.
 - Wrap long lines at ~72 characters.
 
-### 6. Output the git command
+### 6. Output the git command (do not run it)
 
-**Always output a copy-pastable `git commit` command**, not just the message text. Use one `-m` for the subject; if there is a body, add a second `-m` with the body. Use real newlines inside the body string so each item is on a separate line. In a multi-root workspace, prefix with `cd <project-path> && ` so the command runs in the chosen project, or tell the user to run it from that folder.
+**Output a copy-pastable `git commit` command** for the user to run—**do not execute `git commit`** unless the user explicitly asks you to run it (e.g. "run it", "execute it", "commit for me"). Otherwise, only show the command so the user can review and run it themselves.
+
+Use one `-m` for the subject; if there is a body, add a second `-m` with the body. Use real newlines inside the body string so each item is on a separate line. In a multi-root workspace, prefix with `cd <project-path> && ` so the command runs in the chosen project, or tell the user to run it from that folder.
 
 - Subject only: `git commit -m "type(scope): subject"`
 - Subject + body (multiple items on separate lines): use one `-m` with newlines inside the quoted string.
@@ -112,4 +114,4 @@ git commit -m "chore(deps): bump axios to 1.6.0"
 - [ ] Type chosen from content (feat/fix/chore/etc.)
 - [ ] Subject: `type(scope): imperative`, &lt; ~50 chars
 - [ ] Body only if needed; one item per line; wrap at 72 chars
-- [ ] Output a copy-pastable `git commit` command (not just the message)
+- [ ] Output a copy-pastable `git commit` command (not just the message); do not run `git commit` unless the user explicitly asks to run it
